@@ -71,7 +71,6 @@ class Mjpeg extends HookWidget {
     final state = useMemoized(() => _MjpegStateNotifier());
     final visible = useListenable(state);
     final errorState = useState<List<dynamic>?>(null);
-    final isMounted = useIsMounted();
     final manager = useMemoized(
         () => _StreamManager(
               stream,
@@ -80,7 +79,7 @@ class Mjpeg extends HookWidget {
               timeout,
               httpClient ?? Client(),
               preprocessor ?? MjpegPreprocessor(),
-              isMounted,
+              () => context.mounted,
             ),
         [
           stream,
@@ -89,7 +88,6 @@ class Mjpeg extends HookWidget {
           timeout,
           httpClient,
           preprocessor,
-          isMounted
         ]);
     final key = useMemoized(() => UniqueKey(), [manager]);
 

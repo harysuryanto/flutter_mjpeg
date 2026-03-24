@@ -46,7 +46,7 @@ class JpegSplitter extends StreamTransformerBase<List<int>, List<int>> {
   }
 }
 
-class _JpegSplitterSink extends ChunkedConversionSink<List<int>> {
+class _JpegSplitterSink implements ChunkedConversionSink<List<int>> {
   final ChunkedConversionSink<List<int>?> _sink;
 
   /// The carry-over from the previous chunk.
