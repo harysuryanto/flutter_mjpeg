@@ -42,24 +42,50 @@ class MyHomePage extends HookWidget {
               ),
             ),
           ),
-          Row(
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  isRunning.value = !isRunning.value;
-                },
-                child: Text('Toggle'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Scaffold(
-                            appBar: AppBar(),
-                          )));
-                },
-                child: Text('Push new route'),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    isRunning.value = !isRunning.value;
+                  },
+                  child: Text('Toggle isLive'),
+                ),
+                const SizedBox(width: 16),
+                Text('isLive: ${isRunning.value}'),
+                const SizedBox(width: 16),
+                Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                              appBar: AppBar(
+                                title: Text('New Route'),
+                              ),
+                              body: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(32.0),
+                                  child: Text(
+                                    'This screen demonstrations route navigation while the MJPEG stream is active.\n\n'
+                                    'When you navigate here, the Mjpeg widget on the previous screen is temporarily removed '
+                                    'from the active render tree but kept alive in memory. When you press back, it should '
+                                    'resume seamlessly without crashing or memory leaks.\n\n'
+                                    'This tests the internal lifecycle and disposal mechanisms of the stream parser.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )));
+                  },
+                  child: Text('Push new route'),
+                ),
+              ],
+            ),
           ),
         ],
       ),
